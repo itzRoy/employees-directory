@@ -29,4 +29,11 @@ const createError = (message: string, status: number) => {
   
 };
 
-export { createToken, createError, CustomError};
+const getRandomData = async () => {
+  const response = await fetch('https://randomuser.me/api/?inc=picture,name,location');
+  const result = await response.json();
+  return result.results[0];
+  
+};
+
+export { createToken, createError, CustomError, getRandomData};
