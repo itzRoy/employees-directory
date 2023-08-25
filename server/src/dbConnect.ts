@@ -3,4 +3,5 @@ import mongoose from 'mongoose';
 import config from './config.js';
 import { createError } from './utils/index.js';
 
-export default () => mongoose.connect(config.db || '', {dbName: ''}).catch(() => createError('DB connection Error', 500));
+export default () => mongoose.connect(config.db || '', {dbName: 'employeesDir'}).then(() => console.log('connected to db')
+).catch(() => createError('DB connection Error', 500));
