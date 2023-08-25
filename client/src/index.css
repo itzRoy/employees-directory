@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    input {
+        @apply bg-light-input dark:bg-input py-5 px-6 placeholder:text-[14px] placeholder:text-light-placeholder dark:placeholder:text-white-text placeholder:opacity-50 dark:text-white rounded-lg outline-none border-none font-medium
+    }
+    button {
+        @apply w-3/5 dark:bg-white-text self-center border-none outline-none rounded-xl text-white-text dark:text-text-black px-5 py-4
+    }
+}
+
+@layer utilities {
+    @variants responsive {
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+
+      .no-scrollbar {
+          -ms-overflow-style: none; 
+          scrollbar-width: none;  
+      }
+    }
+  }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+}
+
+.checkbox {
+        display: grid;
+        grid-template-columns: 1em auto;
+        gap: 0.5em;
+}
+
+.checkbox[type="checkbox"] {
+    all: unset;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+    border: 1.5px solid #B4B4B4
+  }
+  .checkbox[type="checkbox"]:checked {
+    border-color: #29ABE2;
+    background-color: #29ABE2;
+  }
+  .checkbox[type="checkbox"]::before {
+    content: "";
+    width: 50px;
+    height: 50px;
+    transform: scale(0);
+    background-color: blue;
+    width: 16px;
+    height: 16px;
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+
+  .checkbox[type="checkbox"]:checked::before {
+    transform: scale(1);
+    background-color: white;
+  }
+
+  .custom-transition {
+    transition: all 2s;
+  }
