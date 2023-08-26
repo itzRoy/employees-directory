@@ -26,10 +26,10 @@ module.exports = {
         "exports": "always-multiline",
         "functions": "always-multiline",
     }],
-    "object-curly-newline": ["error", {
-      "ObjectExpression": { "multiline": true, "minProperties": 5 },
-      "ObjectPattern": { "multiline": true },
-  }],
+  //   "object-curly-newline": ["error", {
+  //     "ObjectExpression": { "multiline": true, "minProperties": 5 },
+  //     "ObjectPattern": { "multiline": true },
+  // }],
     "object-curly-spacing": ["error", "always"],
     "key-spacing": ["error", { "beforeColon": false }],
     // "padded-blocks": ["error", "always"],

@@ -14,7 +14,8 @@ const getEmployees = async (req: Irequest<unknown, TQuery>, res: Response, next:
   try {
     const pipeline : Array<PipelineStage> = [
       {
-        $match: { ...filter, name: { $regex: search, $options: 'i' } }
+
+        $match: filter,
       },
       {
         $lookup: {
@@ -59,6 +60,12 @@ const getEmployees = async (req: Irequest<unknown, TQuery>, res: Response, next:
         }
       }
     ];
+
+    if (search.length) pipeline.unshift({
+      $match: {
+        $text: { $search: `/${search}/i` },
+      }
+    },);
 
     const [result] = await Employee.aggregate(pipeline);
 
