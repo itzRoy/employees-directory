@@ -6,6 +6,7 @@ export type TEmployee = {
     department: Types.ObjectId; 
     country: Types.ObjectId; 
     image?: string;
+    isActive?: boolean;
 }
 const employeeSchema = new Schema<TEmployee>(
   {
@@ -26,13 +27,20 @@ const employeeSchema = new Schema<TEmployee>(
     },
     image: {
       type: String
+    },
+    
+    isActive: {
+      type: Boolean,
+      default: true
     }
+    
   },
   {
     timestamps: true
   }
 );
 
+employeeSchema.index({ name: 'text', title: 'text', isActive: 'text' });
 
 const Employee = model('employees', employeeSchema);
 

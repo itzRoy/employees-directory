@@ -6,15 +6,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                'white-text': '#F4F6FA',
-                input: '#2E3239',
-                'light-input': '#DADADA',
-                'light-placeholder': '#1E1E1E',
-                'text-black': '#2E3239',
-                background: '#23262C',
-                'check-box': '#29ABE2',
-                'dark-button': '#B4B4B4',
-                'button-text': '#8C8E93',
+                border: '#ced4da',
+                grey: '#495057',
             },
             fontFamily: { poppins: ['Poppins', 'sans-serif'] },
         },
