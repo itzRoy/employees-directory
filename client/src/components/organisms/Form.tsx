@@ -8,9 +8,10 @@ import {
     useUpdateEmployeeMutation,
 } from '../../store/api/employeesApi'
 import PageWrapper from '../HOC/PageWrapper'
-import { Loader, saveIcon } from '../../assets'
+import { Loader, arrowBackIcon, saveIcon } from '../../assets'
 import { useNavigate, useParams } from 'react-router'
 import { useEffect } from 'react'
+import ImageInput from '../atoms/ImageInput'
 
 type TForm = {
     title: string
@@ -146,7 +147,11 @@ const Form = PageWrapper(({ title, isEdit, isView }: TForm) => {
                                     label='Department'
                                 />
                             </div>
-
+                            <ImageInput
+                                disabled={isView}
+                                value={values.image}
+                                onChange={(val) => handleChange({ target: { value: val, name: 'image' } })}
+                            />
                             {!isView ? (
                                 <SvgButton
                                     Svg={isLoading || isUpdateLoading ? <Loader /> : <img alt='save' src={saveIcon} />}
@@ -154,7 +159,14 @@ const Form = PageWrapper(({ title, isEdit, isView }: TForm) => {
                                     onClick={handleSubmit}
                                     className='bg-blue-800 hover:bg-blue-800 hover:scale-100 text-white self-start py-2 px-3'
                                 />
-                            ) : null}
+                            ) : (
+                                <SvgButton
+                                    Svg={<img alt='save' src={arrowBackIcon} />}
+                                    text='Go Back'
+                                    onClick={() => navigate(config.routes.table, { replace: true })}
+                                    className='bg-blue-800 text-lg hover:bg-blue-800 hover:scale-100 text-white self-start py-2 px-3'
+                                />
+                            )}
                             {(isError || isUpdateError) && renderError()}
                         </form>
                     )}
