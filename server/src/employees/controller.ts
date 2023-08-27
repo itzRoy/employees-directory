@@ -6,6 +6,18 @@ import { PipelineStage } from 'mongoose';
 
 type TQuery = {page: number; limit: number; search: string; filter: {[key: string]: string}, sort: Record<string, 1 | -1> }
 
+const getEmployee = async (req: Irequest<unknown, TQuery>, res: Response, next: NextFunction) => {
+  const { id } = req.params;
+
+  try {
+
+    const employee = await Employee.findById(id).populate(['country', 'department']);
+    return   res.status(200).json(employee);
+  } catch {
+    
+    return next(createError('something went wrong', 500));
+  }
+};
 
 const getEmployees = async (req: Irequest<unknown, TQuery>, res: Response, next: NextFunction) => {
   const { limit, page, search, filter, sort } = req.query;
@@ -125,4 +137,4 @@ const deleteEmployee = async (req: Irequest, res: Response, next: NextFunction) 
   }
 };
 
-export { getEmployees, insertEmployee, updateEmployee, deleteEmployee };
+export { getEmployee, getEmployees, insertEmployee, updateEmployee, deleteEmployee };

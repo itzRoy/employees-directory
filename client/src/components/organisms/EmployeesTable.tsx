@@ -53,8 +53,8 @@ const EmployeesTable = PageWrapper(() => {
     const filterValue = useMemo(
         () =>
             Object.keys(filter).reduce<Record<string, string>>((accumulator, k) => {
-                if (filter?.[k]?._id) {
-                    accumulator[k] = filter[k]._id
+                if (filter?.[k]?.value) {
+                    accumulator[k] = filter[k].value
                 }
                 return accumulator
             }, {}),
@@ -67,14 +67,6 @@ const EmployeesTable = PageWrapper(() => {
     const debouncedSearchValue = useDebounce(search, 500)
 
     useEffect(() => {
-        // const filterValue: { [key: string]: string } = {}
-
-        // Object.keys(filter).forEach((k) => {
-        //     if (filter?.[k]?._id) {
-        //         filterValue[k] = filter[k]._id
-        //     }
-        // })
-
         fetchData({ page, limit, sort, filter: filterValue, search: debouncedSearchValue })
     }, [fetchData, page, limit, sort, filterValue, debouncedSearchValue])
 
@@ -110,6 +102,10 @@ const EmployeesTable = PageWrapper(() => {
             globalFilterFields={['country.label', 'department.label']}
             filterDisplay='row'
             lazy
+            pt={{
+                header: { style: { borderTopLeftRadius: '10px', borderTopRightRadius: '10px' } },
+                paginator: { root: { style: { borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' } } },
+            }}
             showHeaders
             paginator
             header={
