@@ -1,14 +1,15 @@
 import { DataTableStateEvent } from 'primereact/datatable'
 import api from '.'
 import config from '../../../config'
+import { TInitialValues } from '../../components/organisms/Form'
 
 const {
-    endpoints: { employees },
+    endpoints: { employee, employees },
 } = config
 
 export type TEmployeeData = {
-    country: { _id: string; label: string }
-    department: { _id: string; label: string }
+    country: { _id?: string; value?: string; label: string }
+    department: { _id?: string; value?: string; label: string }
     image: string
     title: string
     name: string
@@ -67,20 +68,54 @@ export const extendedApi = api.injectEndpoints({
                 return req
             },
         }),
+        getEmployee: builder.mutation<TInitialValues, string>({
+            query: (id: string) => {
+                const req: {
+                    url: string
+                    method: string
+                } = {
+                    url: employee(id),
+                    method: 'GET',
+                }
+
+                return req
+            },
+            transformResponse: (data: TEmployeeData) => {
+                const dataCopy = { ...data }
+
+                dataCopy.country = { value: data.country._id, label: data.country.label }
+
+                dataCopy.department = { value: data.department._id, label: data.department.label }
+                return dataCopy
+            },
+        }),
         insertEmployee: builder.mutation<TEmployees, TInsertEmployee>({
-            query: (args) => ({
+            query: (body) => ({
                 url: employees,
                 method: 'POST',
-                params: args,
+                body,
+            }),
+        }),
+        updateEmployee: builder.mutation<TEmployees, { body: TInsertEmployee; id: string }>({
+            query: ({ body, id }) => ({
+                url: employee(id),
+                method: 'PUT',
+                body,
             }),
         }),
         deleteEmployee: builder.mutation({
             query: (id: string) => ({
-                url: employees + '/' + id,
+                url: employee(id),
                 method: 'DELETE',
             }),
         }),
     }),
 })
 
-export const { useGetEmployeesMutation, useInsertEmployeeMutation, useDeleteEmployeeMutation } = extendedApi
+export const {
+    useGetEmployeeMutation,
+    useGetEmployeesMutation,
+    useInsertEmployeeMutation,
+    useUpdateEmployeeMutation,
+    useDeleteEmployeeMutation,
+} = extendedApi

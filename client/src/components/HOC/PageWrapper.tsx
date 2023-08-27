@@ -7,7 +7,7 @@ const PageWrapper = <T extends ComponentProps>(Component: FC<T>) =>
     function HOC(props: T) {
         return (
             <div
-                className='h-[100vh] max-h[100vh] flex flex-col px-[30px] md:px-[80px] py-[30px] md:py-[70px] dark:text-white-text bg-white dark:bg-background'
+                className='h-[100vh] max-h[100vh] flex flex-col px-[30px] md:px-[80px] py-[30px] md:py-[70px] dark:text-white-text bg-slate-200 dark:bg-background'
                 id={Component.name}
             >
                 <Component {...props} />

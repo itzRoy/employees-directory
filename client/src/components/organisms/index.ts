@@ -1,3 +1,4 @@
 import EmployeesTable from './EmployeesTable'
+import Form from './Form'
 
-export { EmployeesTable }
+export { EmployeesTable, Form }
