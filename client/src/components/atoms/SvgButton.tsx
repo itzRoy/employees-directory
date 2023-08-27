@@ -11,7 +11,7 @@ function SvgButton({ Svg, text, onClick, disabled, className = '' }: TSvgButton)
         <div
             role='button'
             onClick={!disabled ? onClick : () => {}}
-            className={`relative min-h-[30px] min-w-[30px] w-auto gap-2 flex  hover:bg-blue-100 transition-all ease duration-300 p-2  ${
+            className={`relative  w-auto gap-2 flex items-center  hover:bg-blue-100 transition-all ease duration-300 p-2  ${
                 text ? 'rounded-lg hover:scale-105' : 'rounded-full hover:scale-110 bg-gray-200'
             } ${className}`}
         >
