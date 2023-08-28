@@ -1,4 +1,4 @@
-import { DataTable } from 'primereact/datatable'
+import { DataTable, DataTableSelectionMultipleChangeEvent, DataTableStateEvent } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
@@ -82,7 +82,32 @@ const EmployeesTable = PageWrapper(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [deleteData, isSuccess])
 
+    const onSelectionChange = (e: DataTableSelectionMultipleChangeEvent<TEmployeeData[]>) => setSelected(e.value)
+
+    const onPage = (record: DataTableStateEvent) => {
+        tableDispatcher({
+            type: 'SET_PAGE',
+            page: (record?.page || 0) + 1,
+            limit: record.rows,
+            first: record.first,
+        })
+    }
+
+    const onSort = (sort: DataTableStateEvent) => tableDispatcher({ type: 'SORT', sort })
+
     const onDelete = (id: string) => () => deleteEmployee(id)
+
+    const deactivate = () => {
+        if (selected.length) {
+            activateDeactivate({ ids: selected.map((val) => val._id), type: 'deactivate' })
+        }
+    }
+
+    const activate = () => {
+        if (selected.length) {
+            activateDeactivate({ ids: selected.map((val) => val._id), type: 'activate' })
+        }
+    }
 
     const renderFilterField = (url: string, name: string) => () => (
         <AsyncSelect
@@ -104,8 +129,7 @@ const EmployeesTable = PageWrapper(() => {
             <DataTable
                 selectionMode='checkbox'
                 selection={selected}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                onSelectionChange={(e: any) => setSelected(e.value)}
+                onSelectionChange={onSelectionChange}
                 dataKey='_id'
                 filters={{ 'country.label': { value: null, matchMode: 'equals' } }}
                 globalFilterFields={['country.label', 'department.label']}
@@ -119,20 +143,13 @@ const EmployeesTable = PageWrapper(() => {
                 paginator
                 header={
                     <TableHeader
+                        disabel={!selected.length}
                         searchValue={search}
                         onSearchChange={(e: ChangeEvent<HTMLInputElement>) =>
                             tableDispatcher({ type: 'SEARCH', search: e.target.value })
                         }
-                        onActivateClick={() => {
-                            if (selected.length) {
-                                activateDeactivate({ ids: selected.map((val) => val._id), type: 'activate' })
-                            }
-                        }}
-                        onDeactivateClick={() => {
-                            if (selected.length) {
-                                activateDeactivate({ ids: selected.map((val) => val._id), type: 'deactivate' })
-                            }
-                        }}
+                        onActivateClick={activate}
+                        onDeactivateClick={deactivate}
                     />
                 }
                 rows={limit}
@@ -145,15 +162,8 @@ const EmployeesTable = PageWrapper(() => {
                 rowsPerPageOptions={[5, 10, 25, 50]}
                 sortField={sort.sortField}
                 sortOrder={sort.sortOrder}
-                onSort={(sort) => tableDispatcher({ type: 'SORT', sort })}
-                onPage={(record) => {
-                    tableDispatcher({
-                        type: 'SET_PAGE',
-                        page: (record?.page || 0) + 1,
-                        limit: record.rows,
-                        first: record.first,
-                    })
-                }}
+                onSort={onSort}
+                onPage={onPage}
             >
                 <Column selectionMode='multiple' headerStyle={{ width: '3rem' }}></Column>
                 <Column

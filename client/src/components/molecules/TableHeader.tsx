@@ -9,8 +9,9 @@ type THeader = {
     onActivateClick: () => void
     onDeactivateClick: () => void
     searchValue: string
+    disabel?: boolean
 }
-const TableHeader = ({ onSearchChange, searchValue, onActivateClick, onDeactivateClick }: THeader) => {
+const TableHeader = ({ onSearchChange, searchValue, onActivateClick, onDeactivateClick, disabel }: THeader) => {
     const navigate = useNavigate()
 
     return (
@@ -24,16 +25,22 @@ const TableHeader = ({ onSearchChange, searchValue, onActivateClick, onDeactivat
                     className='px-3 hover:bg-blue-700 text-white bg-blue-800'
                 />
                 <SvgButton
-                    Svg={<img alt='add new' src={unlockIcon} />}
+                    Svg={<img alt='activate' src={unlockIcon} />}
                     text='Activate'
                     onClick={onActivateClick}
-                    className='px-3 hover:bg-green-600 text-white bg-green-700'
+                    className={`px-3  text-white ${
+                        !disabel
+                            ? 'hover:bg-green-600 bg-green-600'
+                            : 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed'
+                    }`}
                 />
                 <SvgButton
-                    Svg={<img alt='add new' src={lockIcon} />}
+                    Svg={<img alt='deactivate' src={lockIcon} />}
                     text='Deactivate'
                     onClick={onDeactivateClick}
-                    className='px-3 hover:bg-red-600 text-white bg-red-600'
+                    className={`px-3  text-white ${
+                        !disabel ? 'hover:bg-red-600 bg-red-600' : 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed'
+                    }`}
                 />
             </div>
         </div>
