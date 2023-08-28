@@ -31,7 +31,7 @@ const ImageInput = ({ onChange, value, disabled }: TImageInput) => {
                         <SvgButton
                             onClick={() => onChange('')}
                             Svg={<img src={cancelIcon} />}
-                            className='absolute left-[-8px] top-[8px] w-[20px] h-[20px] p-0'
+                            className='absolute left-[-8px] top-[8px] w-5 h-5 p-[0px]'
                         />
                     ) : null}
                     <img src={value} alt='Selected' />
