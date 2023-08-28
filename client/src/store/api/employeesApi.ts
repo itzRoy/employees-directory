@@ -4,7 +4,7 @@ import config from '../../../config'
 import { TInitialValues } from '../../components/organisms/Form'
 
 const {
-    endpoints: { employee, employees },
+    endpoints: { employee, employees, activateEmployees, deactivateEmployees },
 } = config
 
 export type TEmployeeData = {
@@ -109,6 +109,13 @@ export const extendedApi = api.injectEndpoints({
                 method: 'DELETE',
             }),
         }),
+        employeesStatus: builder.mutation({
+            query: ({ ids, type }: { ids: string[]; type: 'activate' | 'deactivate' }) => ({
+                url: type === 'activate' ? activateEmployees : deactivateEmployees,
+                method: 'POST',
+                body: { ids },
+            }),
+        }),
     }),
 })
 
@@ -118,4 +125,5 @@ export const {
     useInsertEmployeeMutation,
     useUpdateEmployeeMutation,
     useDeleteEmployeeMutation,
+    useEmployeesStatusMutation,
 } = extendedApi

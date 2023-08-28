@@ -5,6 +5,8 @@ export default {
     endpoints: {
         employee: (id: string) => `/employees/${id}`,
         employees: '/employees',
+        activateEmployees: '/employees/activate',
+        deactivateEmployees: '/employees/deactivate',
         countries: '/countries',
         departments: '/departments',
     },

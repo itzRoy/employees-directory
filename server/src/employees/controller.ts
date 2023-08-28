@@ -2,7 +2,7 @@ import { NextFunction, Response } from 'express';
 import { createError } from '../utils/index.js';
 import Employee, { TEmployee } from './model.js';
 import { Irequest } from '../declarations.js';
-import { PipelineStage } from 'mongoose';
+import { PipelineStage, Types } from 'mongoose';
 
 type TQuery = {page: number; limit: number; search: string; filter: {[key: string]: string}, sort: Record<string, 1 | -1> }
 
@@ -137,4 +137,34 @@ const deleteEmployee = async (req: Irequest, res: Response, next: NextFunction) 
   }
 };
 
-export { getEmployee, getEmployees, insertEmployee, updateEmployee, deleteEmployee };
+
+const activateEmployees = async (req: Irequest<{ids: Types.ObjectId[]}>, res: Response, next: NextFunction) => {
+  const {ids} = req.body;
+  try {
+    await Employee.updateMany({_id: {$in: ids}}, {$set: {isActive: true}});
+
+    return res.status(200).json({ status: 200, success: true, message: 'employees activated'});
+
+  } catch {
+
+    return next(createError('something went wrong', 500));
+
+  }
+
+};
+
+const deactivateEmployees = async (req: Irequest<{ids: Types.ObjectId[]}>, res: Response, next: NextFunction) => {
+  const {ids} = req.body;
+  try {
+    await Employee.updateMany({_id: {$in: ids}}, {$set: {isActive: false}});
+
+    return res.status(200).json({ status: 200, success: true, message: 'employees deactivated'});
+    
+  } catch {
+
+    return next(createError('something went wrong', 500));
+
+  }
+
+};
+export { getEmployee, getEmployees, insertEmployee, updateEmployee, deleteEmployee, activateEmployees, deactivateEmployees };

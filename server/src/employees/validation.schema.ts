@@ -97,7 +97,7 @@ const getEmployeesSchema = Joi.object({
     }
   }).default({}),
 
-  sort: Joi.string().custom((value) => {if (Object.keys(JSON.parse(value)).length) return JSON.parse(value);}).default({updatedAt: -1})
+  sort: Joi.string().custom((value) => {if (Object.keys(JSON.parse(value)).length) return JSON.parse(value);}).default({createdAt: -1})
 });
   
 export {validateEmployee, getEmployeesSchema};

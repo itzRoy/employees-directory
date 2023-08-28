@@ -8,5 +8,20 @@ import saveIcon from './saveIcon.svg'
 import Loader from './Loader.tsx'
 import cancelIcon from './cancelIcon.svg'
 import arrowBackIcon from './arrowBack.svg'
+import lockIcon from './lock.svg'
+import unlockIcon from './unlock.svg'
 
-export { searchIcon, clearIcon, deleteIcon, editIcon, viewIcon, plusIcon, saveIcon, cancelIcon, arrowBackIcon, Loader }
+export {
+    searchIcon,
+    clearIcon,
+    deleteIcon,
+    editIcon,
+    viewIcon,
+    plusIcon,
+    saveIcon,
+    cancelIcon,
+    arrowBackIcon,
+    lockIcon,
+    unlockIcon,
+    Loader,
+}
