@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from '../config.js';
 import { Types } from 'mongoose';
+import { get } from 'https';
 
 const createToken = (id: Types.ObjectId): string => {
   return jwt.sign({ id }, config.tokenSecret, { expiresIn: 7200});
@@ -36,4 +37,26 @@ const getRandomData = async () => {
   
 };
 
-export { createToken, createError, CustomError, getRandomData};
+function downloadImage(url) {
+  return new Promise<WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>>((resolve, reject) => {
+    get(url, {rejectUnauthorized: false}, response => {
+      const chunks: Uint8Array[] = [];
+      
+      response.on('data', (chunk: Uint8Array) => {
+        chunks.push(chunk);
+      });
+
+      response.on('end', () => {
+        const imageData = Buffer.concat(chunks);
+        resolve(imageData);
+      });
+
+      response.on('error', error => {
+        
+        reject(error); 
+      });
+    });
+  });
+}
+
+export { createToken, createError, CustomError, getRandomData, downloadImage};

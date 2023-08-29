@@ -46,6 +46,7 @@ const emplyeeSchema = Joi.object({
   name: Joi.string(),
   title: Joi.string().required(),
   image: Joi.string().required(),
+  isActive: Joi.boolean(),
   department: Joi.custom((value, helpers) => {
     if (!isValidObjectId(value)) {
       return helpers.error('any.invalid');

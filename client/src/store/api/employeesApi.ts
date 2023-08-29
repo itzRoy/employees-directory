@@ -2,9 +2,10 @@ import { DataTableStateEvent } from 'primereact/datatable'
 import api from '.'
 import config from '../../../config'
 import { TInitialValues } from '../../components/organisms/Form'
+import { fileDownloader } from '../../utils'
 
 const {
-    endpoints: { employee, employees, activateEmployees, deactivateEmployees },
+    endpoints: { employee, employees, activateEmployees, deactivateEmployees, exportEmployees },
 } = config
 
 export type TEmployeeData = {
@@ -116,6 +117,14 @@ export const extendedApi = api.injectEndpoints({
                 body: { ids },
             }),
         }),
+        exportEmployees: builder.mutation({
+            query: () => ({
+                url: exportEmployees,
+                method: 'GET',
+                responseHandler: async (response) => fileDownloader(await response.blob(), 'employees.xlsx'),
+                cache: 'no-cache',
+            }),
+        }),
     }),
 })
 
@@ -126,4 +135,5 @@ export const {
     useUpdateEmployeeMutation,
     useDeleteEmployeeMutation,
     useEmployeesStatusMutation,
+    useExportEmployeesMutation,
 } = extendedApi

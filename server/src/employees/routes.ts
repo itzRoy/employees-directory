@@ -1,11 +1,12 @@
 import {Router} from 'express';
-import {activateEmployees, deactivateEmployees, deleteEmployee, getEmployee, getEmployees, insertEmployee, updateEmployee} from './controller.js';
+import {activateEmployees, deactivateEmployees, deleteEmployee, exportEmployees, getEmployee, getEmployees, insertEmployee, updateEmployee} from './controller.js';
 import { getEmployeesSchema, validateEmployee } from './validation.schema.js';
 import validator from '../middlware/validator.js';
 
 const router = Router();
 
 router.get('/employees', validator(getEmployeesSchema, 'query'), getEmployees);
+router.get('/employees/export', exportEmployees);
 router.get('/employees/:id', getEmployee);
 router.post('/employees', validateEmployee, insertEmployee);
 router.post('/employees/activate', activateEmployees);

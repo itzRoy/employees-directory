@@ -11,16 +11,16 @@ const {
 function getRandomData() {
     const jobTitles = ['Software Engineer', 'UX Designer', 'Data Analyst', 'Product Manager']
     const departments = ['Engineering', 'Design', 'Analytics', 'Product']
+    const status = [true, false]
 
     const randomJobIndex = Math.floor(Math.random() * jobTitles.length)
     const randomDepartmentIndex = Math.floor(Math.random() * departments.length)
-
-    const title = jobTitles[randomJobIndex]
-    const department = departments[randomDepartmentIndex]
+    const randomStatus = Math.floor(Math.random() * status.length)
 
     return {
-        title,
-        department,
+        title: jobTitles[randomJobIndex],
+        department: departments[randomDepartmentIndex],
+        isActive: status[randomStatus],
     }
 }
 

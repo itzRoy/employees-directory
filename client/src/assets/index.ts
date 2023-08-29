@@ -10,6 +10,7 @@ import cancelIcon from './cancelIcon.svg'
 import arrowBackIcon from './arrowBack.svg'
 import lockIcon from './lock.svg'
 import unlockIcon from './unlock.svg'
+import excelIcon from './excel.svg'
 
 export {
     searchIcon,
@@ -23,5 +24,6 @@ export {
     arrowBackIcon,
     lockIcon,
     unlockIcon,
+    excelIcon,
     Loader,
 }

@@ -1,8 +1,9 @@
 import { ChangeEvent } from 'react'
 import { SearchInput, SvgButton } from '../atoms'
-import { lockIcon, plusIcon, unlockIcon } from '../../assets'
+import { excelIcon, lockIcon, plusIcon, unlockIcon } from '../../assets'
 import { useNavigate } from 'react-router'
 import config from '../../../config'
+import { useExportEmployeesMutation } from '../../store/api/employeesApi'
 
 type THeader = {
     onSearchChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -13,6 +14,7 @@ type THeader = {
 }
 const TableHeader = ({ onSearchChange, searchValue, onActivateClick, onDeactivateClick, disabel }: THeader) => {
     const navigate = useNavigate()
+    const [exportExcel, { isLoading }] = useExportEmployeesMutation()
 
     return (
         <>
@@ -43,6 +45,17 @@ const TableHeader = ({ onSearchChange, searchValue, onActivateClick, onDeactivat
                         className={`px-3  text-white ${
                             !disabel
                                 ? 'hover:bg-red-600 bg-red-600'
+                                : 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed'
+                        }`}
+                    />
+                    <SvgButton
+                        Svg={<img alt='deactivate' src={excelIcon} />}
+                        text='Export Excel'
+                        disabled={isLoading}
+                        onClick={() => exportExcel(null)}
+                        className={`px-3  text-white ${
+                            !isLoading
+                                ? 'hover:bg-green-700 bg-green-700'
                                 : 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed'
                         }`}
                     />
