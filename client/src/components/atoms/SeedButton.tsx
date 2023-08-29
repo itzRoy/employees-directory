@@ -26,9 +26,17 @@ function getRandomData() {
 
 const SeedButton = () => {
     const [count, setCount] = useState(100)
+    const [disabled, setDisabled] = useState(false)
 
     const onClick = async (num: number): Promise<void> => {
-        if (num == 0) return setCount(100)
+        if (!disabled) {
+            setDisabled(true)
+        }
+
+        if (num == 0) {
+            setDisabled(false)
+            return setCount(100)
+        }
 
         const body = getRandomData()
 
@@ -50,7 +58,9 @@ const SeedButton = () => {
             <SvgButton
                 onClick={() => onClick(count)}
                 text={`Seed ${count}`}
-                className='bg-red-500 text-white hover:scale-100 hover:bg-red-500'
+                className={` text-white hover:scale-100 ${
+                    !disabled ? 'bg-red-500 hover:bg-red-500' : 'cursor-not-allowed bg-gray-400'
+                }`}
             />
         </div>
     )

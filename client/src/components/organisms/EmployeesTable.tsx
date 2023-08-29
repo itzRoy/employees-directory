@@ -137,6 +137,7 @@ const EmployeesTable = PageWrapper(() => {
                 lazy
                 pt={{
                     header: { style: { borderTopLeftRadius: '10px', borderTopRightRadius: '10px' } },
+                    wrapper: { className: 'h-[90%]' },
                     paginator: { root: { style: { borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' } } },
                 }}
                 showHeaders
