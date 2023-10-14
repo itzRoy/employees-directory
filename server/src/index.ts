@@ -11,10 +11,12 @@ import countriesRoutes from './countries/routes.js';
 await dbConnet();
 
 const PORT = config.port || 5000;
+const origins = config.origins;
 const app = express();
 
-
-app.use(cors());
+app.use(cors({
+  origin: origins,
+}));
 
 app.use(express.json());
 
@@ -28,7 +30,7 @@ app.use('/api/health', (req, res: Response) => {
   res.send('health checked');
 });
 
-app.use(error);
+app.use(error);e
 
 app.listen(
   PORT
