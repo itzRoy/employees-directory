@@ -11,12 +11,11 @@ import countriesRoutes from './countries/routes.js';
 await dbConnet();
 
 const PORT = config.port || 5000;
-const origins = config.origins;
 const app = express();
 
 
 app.use(cors({
-  origin: origins,
+  origin: '*',
 }));
 
 app.use(express.json());
