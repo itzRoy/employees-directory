@@ -30,7 +30,7 @@ app.use('/api/health', (req, res: Response) => {
   res.send('health checked');
 });
 
-app.use(error);e
+app.use(error);
 
 app.listen(
   PORT
