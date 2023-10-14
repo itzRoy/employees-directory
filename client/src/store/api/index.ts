@@ -3,7 +3,6 @@ import config from '../../../config'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: config.api,
-    credentials: 'include',
     prepareHeaders: (headers) => {
         headers.set('Content-Type', 'application/json')
         return headers
