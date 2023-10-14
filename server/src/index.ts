@@ -14,6 +14,7 @@ const PORT = config.port || 5000;
 const origins = config.origins;
 const app = express();
 
+
 app.use(cors({
   origin: origins,
   credentials: true,

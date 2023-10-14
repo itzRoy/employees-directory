@@ -10,15 +10,15 @@ config({path: resolve(__dirname, '../.env.local')});
 export type Tconfig = {
   tokenSecret: Secret
   port?: string | number
-  db?: string
-  origins?: string[];
+  db?: string,
+  origins?: string[],
 }
 
 
 const configObj: Tconfig = {
   port : process.env.PORT,
   db: process.env.DB,
-  origins: process.env.origins?.split(','),
+  origins: process.env.ORIGINS?.split(','),
   tokenSecret: process.env.TOKEN_SECRET as string,
 
 } satisfies Tconfig;
